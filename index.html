@@ -79,11 +79,11 @@
         }
 
         function addRemoteVideo(stream){
-            let video = document.createElement("video");
-            video.classList.add("video")
-            video.srcObject = stream;
-            video.play()
-            document.getElementById("remoteVideo").append(video)
+            let videoRemote = document.createElement("video");
+            videoRemote.classList.add("video")
+            videoRemote.srcObject = stream;
+            videoRemote.play()
+            document.getElementById("remoteVideo").append(videoRemote)
         }
 
         function addOurVideo(stream){
