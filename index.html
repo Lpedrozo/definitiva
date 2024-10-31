@@ -34,7 +34,7 @@
         peer.on("open", function(id){
             document.getElementById("show-peer").innerHTML = id
         })
-        peer.on("open", function(call){
+        peer.on("call", function(call){
             navigator.mediaDevices.getUserMedia({
                 video: true,
                 audio: true
