@@ -4,9 +4,9 @@
     <title>Delta Meet</title>
 </head>
 <style>
-    .video{
-        height:400px;
-        width:300px;
+    .video {
+        height: 400px;
+        width: 300px;
     }
 </style>
 <body>
@@ -25,73 +25,86 @@
 </body>
 
 </html>
-<script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
 <script>
-    window.addEventListener("load", (event)=>{
+    window.addEventListener("load", (event) => {
         var peer = new Peer();
         var myStream;
+        console.log(myStream)
         var peerList = [];
-        peer.on("open", function(id){
+        peer.on("open", function (id) {
             document.getElementById("show-peer").innerHTML = id
         })
-        peer.on("open", function(call){
-            navigator.mediaDevices.getUserMedia({
-                video: true,
-                audio: true
-            }).then((stream)=>{
-                myStream = stream
-                addOurVideo(stream)
-                call.answer(stream)
-                call.on("stream", function(remoteStream){
-                    if (!peerList.includes(call.peer)){
-                        addRemoteVideo(remoteStream)
-                        peerList.push(call.peer)
-                    }
-                })
-            }).catch((err)=>{
-                console.log(err + "unable to got media.")
-            })
-        })
-
-        document.getElementById("call-peer").addEventListener("click", (e)=>{
-            let remotePeerId = document.getElementById("peerID").value;
-            document.getElementById("show-peer").innerHTML = "conneting" + remotePeerId;
-            callPeer(remotePeerId);
-        })
-
-        function callPeer(id){
+        peer.on("call-peer", function (call) {
             navigator.mediaDevices.getUserMedia({
                 video: true,
                 audio: true
             }).then((stream) => {
                 myStream = stream
                 addOurVideo(stream)
-                let call = peer.call(id, stream)
-                call.on("stream", function(remoteStream){
-                    if (!peerList.includes(call.peer)){
+                call.answer(stream)
+                call.on("stream", function (remoteStream) {
+                    if (!peerList.includes(call.peer)) {
                         addRemoteVideo(remoteStream)
                         peerList.push(call.peer)
+                        debugger
                     }
                 })
             }).catch((err) => {
+                console.log(err + "unable to got media.")
+            })
+            debugger
+        })
+
+        document.getElementById("call-peer").addEventListener("click", (e) => {
+            let remotePeerId = document.getElementById("peerID").value;
+            document.getElementById("show-peer").innerHTML = "conneting" + remotePeerId;
+            console.log("Remote Peer Id" + remotePeerId)
+            callPeer(remotePeerId);
+        })
+
+        function callPeer(id) {
+            navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            }).then((stream) => {
+                myStream = stream
+                console.log("my stream dentro de callPeer" + myStream)
+                addOurVideo(stream)
+                let call = peer.call(id, stream)
+                call.on("stream", function (remoteStream) {
+                    if (!peerList.includes(call.peer)) {
+                        addRemoteVideo(remoteStream)
+                        peerList.push(call.peer)
+                        debugger
+                    }
+                }
+                )
+            }).catch((err) => {
                 console.log(err + "enable to get media.")
             })
+            debugger
         }
 
-        function addRemoteVideo(stream){
+        function addRemoteVideo(stream) {
             let videoRemote = document.createElement("video");
             videoRemote.classList.add("video")
             videoRemote.srcObject = stream;
             videoRemote.play()
             document.getElementById("remoteVideo").append(videoRemote)
+            var remoteVideoo = document.getElementById("remoteVideo")
+            console.log(remoteVideoo)
+            debugger
         }
 
-        function addOurVideo(stream){
+        function addOurVideo(stream) {
             let video = document.createElement("video");
             video.classList.add("video")
             video.srcObject = stream;
             video.play()
             document.getElementById("ourVideo").append(video)
+            debugger
         }
-})
+    })
 </script>
