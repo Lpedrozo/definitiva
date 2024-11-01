@@ -36,9 +36,7 @@
         peer.on("open", function (id) {
             document.getElementById("show-peer").innerHTML = id
         })
-<<<<<<< HEAD
         peer.on("call-peer", function (call) {
-=======
         peer.on("call", function(call){
             navigator.mediaDevices.getUserMedia({
                 video: true,
@@ -67,24 +65,20 @@
         })
 
         function callPeer(id){
->>>>>>> 1daf1685f65463a386492b5784467700481a913f
             navigator.mediaDevices.getUserMedia({
                 video: true,
                 audio: true
             }).then((stream) => {
                 myStream = stream
                 addOurVideo(stream)
-<<<<<<< HEAD
                 call.answer(stream)
                 call.on("stream", function (remoteStream) {
                     if (!peerList.includes(call.peer)) {
                         addRemoteVideo(remoteStream)
                         peerList.push(call.peer)
-=======
                 let call = peer.call(id, stream)
                 call.on("stream", function(remoteStream){
                         addRemoteVideo(remoteStream)
->>>>>>> 1daf1685f65463a386492b5784467700481a913f
                         debugger
                     }
                 )
@@ -130,11 +124,8 @@
             videoRemote.srcObject = stream;
             videoRemote.play()
             document.getElementById("remoteVideo").append(videoRemote)
-<<<<<<< HEAD
             var remoteVideoo = document.getElementById("remoteVideo")
             console.log(remoteVideoo)
-=======
->>>>>>> 1daf1685f65463a386492b5784467700481a913f
             debugger
         }
 
