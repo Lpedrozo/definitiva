@@ -36,21 +36,58 @@
         peer.on("open", function (id) {
             document.getElementById("show-peer").innerHTML = id
         })
+<<<<<<< HEAD
         peer.on("call-peer", function (call) {
+=======
+        peer.on("call", function(call){
+            navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            }).then((stream)=>{
+                myStream = stream
+                addOurVideo(stream)
+                call.answer(stream)
+                call.on("stream", function(remoteStream){
+                    if (!peerList.includes(call.peer)){
+                        addRemoteVideo(remoteStream)
+                        peerList.push(call.peer)
+                        debugger
+                    }
+                })
+            }).catch((err)=>{
+                console.log(err + "unable to got media.")
+            })
+            debugger
+        })
+
+        document.getElementById("call-peer").addEventListener("click", (e)=>{
+            let remotePeerId = document.getElementById("peerID").value;
+            document.getElementById("show-peer").innerHTML = "conneting" + remotePeerId;
+            callPeer(remotePeerId);
+        })
+
+        function callPeer(id){
+>>>>>>> 1daf1685f65463a386492b5784467700481a913f
             navigator.mediaDevices.getUserMedia({
                 video: true,
                 audio: true
             }).then((stream) => {
                 myStream = stream
                 addOurVideo(stream)
+<<<<<<< HEAD
                 call.answer(stream)
                 call.on("stream", function (remoteStream) {
                     if (!peerList.includes(call.peer)) {
                         addRemoteVideo(remoteStream)
                         peerList.push(call.peer)
+=======
+                let call = peer.call(id, stream)
+                call.on("stream", function(remoteStream){
+                        addRemoteVideo(remoteStream)
+>>>>>>> 1daf1685f65463a386492b5784467700481a913f
                         debugger
                     }
-                })
+                )
             }).catch((err) => {
                 console.log(err + "unable to got media.")
             })
@@ -93,8 +130,11 @@
             videoRemote.srcObject = stream;
             videoRemote.play()
             document.getElementById("remoteVideo").append(videoRemote)
+<<<<<<< HEAD
             var remoteVideoo = document.getElementById("remoteVideo")
             console.log(remoteVideoo)
+=======
+>>>>>>> 1daf1685f65463a386492b5784467700481a913f
             debugger
         }
 
