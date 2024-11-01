@@ -68,11 +68,9 @@
                 addOurVideo(stream)
                 let call = peer.call(id, stream)
                 call.on("stream", function(remoteStream){
-                    if (!peerList.includes(call.peer)){
                         addRemoteVideo(remoteStream)
-                        peerList.push(call.peer)
                     }
-                })
+                )
             }).catch((err) => {
                 console.log(err + "enable to get media.")
             })
