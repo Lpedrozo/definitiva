@@ -46,6 +46,7 @@
                     if (!peerList.includes(call.peer)){
                         addRemoteVideo(remoteStream)
                         peerList.push(call.peer)
+                        debugger
                     }
                 })
             }).catch((err)=>{
@@ -70,6 +71,7 @@
                 let call = peer.call(id, stream)
                 call.on("stream", function(remoteStream){
                         addRemoteVideo(remoteStream)
+                        debugger
                     }
                 )
             }).catch((err) => {
