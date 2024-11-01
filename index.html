@@ -51,6 +51,7 @@
             }).catch((err)=>{
                 console.log(err + "unable to got media.")
             })
+            debugger
         })
 
         document.getElementById("call-peer").addEventListener("click", (e)=>{
@@ -74,6 +75,7 @@
             }).catch((err) => {
                 console.log(err + "enable to get media.")
             })
+            debugger
         }
 
         function addRemoteVideo(stream){
@@ -82,6 +84,7 @@
             videoRemote.srcObject = stream;
             videoRemote.play()
             document.getElementById("remoteVideo").append(videoRemote)
+            debugger
         }
 
         function addOurVideo(stream){
@@ -90,6 +93,7 @@
             video.srcObject = stream;
             video.play()
             document.getElementById("ourVideo").append(video)
+            debugger
         }
 })
 </script>
